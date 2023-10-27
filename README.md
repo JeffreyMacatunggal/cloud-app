@@ -1,4 +1,4 @@
-# Company App Frontend 🌐
+# Company App 🌐
 
 This is a comprehensive frontend application for managing company information, painted with vibrant colors and built using a modern tech stack.
 
