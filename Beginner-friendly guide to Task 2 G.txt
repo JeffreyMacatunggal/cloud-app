@@ -1,0 +1,31 @@
+**Beginner-friendly guide to Task 2: General & Technical Questions**
+
+**How to streamline the process of adding company records to HubSpot using HubSpot's current features:**
+
+**Step 1: Set up a form**
+
+1. Go to **Contacts** > **Forms** and click **Create Form**.
+2. Select the **Company** form type.
+3. Add the following fields to your form:
+    * Company name
+    * Address
+    * Email
+    * Phone
+4. Click **Save and Publish**.
+
+**Step 2: Connect the form to HubSpot**
+
+1. Go to **Contacts** > **Forms** and click the name of your form.
+2. Click **Integrations**.
+3. Click **Connect to HubSpot**.
+4. Select your HubSpot account and click **Connect**.
+
+**Step 3: Store the data in HubSpot**
+
+When a visitor submits the form, their company information will be added to HubSpot as a new contact. You can also create a custom object to store additional data about the company, such as industry, size, and website.
+
+To create a custom object:
+
+1. Go to **Contacts** > **Create Custom Object**.
+2. Give the custom object a name and description, and then add the relevant fields.
+3. Once you have created the custom object, you can link it to the contact record.

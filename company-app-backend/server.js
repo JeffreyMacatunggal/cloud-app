@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const path = require('path');  // Added this
 require('dotenv').config();
 
 const app = express();
@@ -20,8 +21,11 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(helmet());
+
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, '../company-app-frontend/dist')));
 
 console.log('Middleware set up complete');
 
@@ -49,7 +53,6 @@ console.log('Mongoose model set up complete');
 app.post('/add-company', async (req, res) => {
   const { name, address, email, phone } = req.body;
 
-  // Basic validation (can be expanded upon)
   if (!name || !address || !email || !phone) {
     return res.status(400).send('All fields are required.');
   }
@@ -65,16 +68,31 @@ app.post('/add-company', async (req, res) => {
     await company.save();
 
     console.log('Company added successfully:', company);
-    res.status(200).send('Company added successfully!');
+    
+    // Redirect to success page
+    res.redirect('/success');
   } catch (err) {
     console.error('Error saving company:', err);
     return res.status(500).send('Internal server error.');
   }
 });
 
-
 app.get('/', (req, res) => {
   res.send('Welcome to the Company API!');
+});
+
+// Route for success page
+app.get('/success', (req, res) => {
+  res.sendFile(path.join(__dirname, '../company-app-frontend/dist', 'index.html'));
+});
+
+// Handles any other requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../company-app-frontend/dist', 'index.html'));
+});
+
+app.get('/status', (req, res) => {
+  res.status(200).send('Backend is up and running');
 });
 
 // Start server
